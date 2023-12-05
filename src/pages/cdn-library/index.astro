@@ -1,0 +1,169 @@
+---
+import Blank from "../../layouts/Blank.astro";
+let libraries = [];
+const apiUrl = "https://api.cdnjs.com/libraries";
+const params = {
+  fields: "filename,description,version",
+  limit: 42,
+};
+
+const response = await fetch(
+  `${apiUrl}?fields=${params.fields}&limit=${params.limit}`
+);
+const data = await response.json();
+console.log("Data dari API 2:", data);
+libraries = data.results;
+---
+
+<Blank title="CDN Libraries" bgcolor="color1">
+  <header
+    class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom color4"
+  >
+    <a
+      href="/"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+    >
+      <span class="fs-4 ps-3"
+        ><i class="bi bi-link-45deg fw-bold fs-1 text-color1"></i></span
+      >
+      <span class="fs-4 fw-bold text-color1">CDN Libraries</span>
+    </a>
+
+    <ul class="nav nav-pills fw-bold">
+      <li class="nav-item">
+        <a href="#" class="nav-link text-color1" aria-current="page">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark">Features</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark">Pricing</a>
+      </li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark">About</a></li>
+    </ul>
+  </header>
+  <main>
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">CDN Libraries</h1>
+          <p class="lead text-body-secondary">
+            Website ini menampilkan kumpulan CDN link dari library JavaScript.
+          </p>
+        </div>
+        <div class="row pt-5">
+          <div class="col"></div>
+          <div class="col-md-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <div class="form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingInputGroup1"
+                  placeholder="Search..."
+                  aria-describedby="button-addon2"
+                />
+                <label for="floatingInputGroup1">Search...</label>
+              </div>
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2">Search</button
+              >
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="container">
+    <div class="row row-cols-md-3 row-cols-1 mb-2">
+      {
+        libraries.map((library) => (
+          <div class="col py-3">
+            <div
+              class="row g-0 shadow rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+              style="height: 100%;"
+            >
+              <div class="col p-4 d-flex flex-column position-static color4">
+                <strong class="d-inline-block mb-2 text-emphasis dark">
+                  {library.name}
+                </strong>
+                <h5 class="mb-0 text-color3">{library.filename}</h5>
+                <div class="mb-1 text-body-ehite">
+                  version {library.version}
+                </div>
+                <p class="card-text mb-auto text-color3">
+                  {library.description}
+                </p>
+                <div class="text-center">
+                  <a
+                    href="#"
+                    class="icon-link gap-1 icon-link-hover link-light stretched-link"
+                  >
+                    Go details
+                    <i class="bi bi-chevron-right" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item">
+        <a href="#" class="nav-link px-2 text-body-secondary">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link px-2 text-body-secondary">Features</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link px-2 text-body-secondary">Pricing</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link px-2 text-body-secondary">FAQs</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link px-2 text-body-secondary">About</a>
+      </li>
+    </ul>
+    <p class="text-center text-body-secondary fw-bold">© 2023 Devkikinian</p>
+    <p class="text-center text-body-secondary fw-bold">
+      <a href="http://astro.build" target="_blank" rel="noopener noreferrer"
+        >Astro</a
+      > | <a href="http://vercel.com" target="_blank" rel="noopener noreferrer"
+        >Vercel</a
+      > | <a href="http://cdnjs.com" target="_blank" rel="noopener noreferrer"
+        >cdnjs</a
+      >
+    </p>
+  </footer>
+</Blank>
+
+<script>
+  import axios from "axios";
+
+  const apiUrl = "https://api.cdnjs.com/libraries";
+  const params = {
+    fields: "filename,description,version,github",
+    limit: 3,
+  };
+
+  // axios
+  //   .get(apiUrl, { params })
+  //   .then((response) => {
+  //     // Proses data yang diterima dari API
+  //     console.log("Data dari API:", response.data);
+  //   })
+  //   .catch((error) => {
+  //     // Tangani kesalahan jika permintaan gagal
+  //     console.error("Error dalam permintaan:", error);
+  //   });
+</script>
