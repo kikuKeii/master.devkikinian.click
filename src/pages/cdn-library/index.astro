@@ -1,18 +1,5 @@
 ---
 import Blank from "../../layouts/Blank.astro";
-let libraries = [];
-const apiUrl = "https://api.cdnjs.com/libraries";
-const params = {
-  fields: "filename,description,version",
-  limit: 42,
-};
-
-const response = await fetch(
-  `${apiUrl}?fields=${params.fields}&limit=${params.limit}`
-);
-const data = await response.json();
-console.log("Data dari API 2:", data);
-libraries = data.results;
 ---
 
 <Blank title="CDN Libraries" bgcolor="color1">
@@ -31,16 +18,32 @@ libraries = data.results;
 
     <ul class="nav nav-pills fw-bold">
       <li class="nav-item">
-        <a href="#" class="nav-link text-color1" aria-current="page">Home</a>
+        <a
+          href="https://master.devkikinian.click/cdn-library"
+          class="nav-link link-dark"
+          aria-current="page">Home</a
+        >
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark">Features</a>
+        <a href="https://devkikininan.click" class="nav-link link-dark"
+          >devkikinian</a
+        >
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark">Pricing</a>
+        <a href="https://api.devkikinian.click" class="nav-link link-dark"
+          >Api</a
+        >
       </li>
-      <li class="nav-item"><a href="#" class="nav-link link-dark">FAQs</a></li>
-      <li class="nav-item"><a href="#" class="nav-link link-dark">About</a></li>
+      <li class="nav-item">
+        <a href='mailto:kiki@devkikinian.click"' class="nav-link link-dark"
+          >Contact</a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="https://kikukeii.github.io/profile" class="nav-link link-dark"
+          >About</a
+        >
+      </li>
     </ul>
   </header>
   <main>
@@ -61,16 +64,16 @@ libraries = data.results;
                 <input
                   type="text"
                   class="form-control"
-                  id="floatingInputGroup1"
+                  id="searchBox"
                   placeholder="Search..."
                   aria-describedby="button-addon2"
                 />
-                <label for="floatingInputGroup1">Search...</label>
+                <label for="searchBox">Search...</label>
               </div>
               <button
                 class="btn btn-outline-secondary"
                 type="button"
-                id="button-addon2">Search</button
+                id="searchButton">Search</button
               >
             </div>
           </div>
@@ -80,40 +83,7 @@ libraries = data.results;
     </section>
   </main>
   <div class="container">
-    <div class="row row-cols-md-3 row-cols-1 mb-2">
-      {
-        libraries.map((library) => (
-          <div class="col py-3">
-            <div
-              class="row g-0 shadow rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
-              style="height: 100%;"
-            >
-              <div class="col p-4 d-flex flex-column position-static color4">
-                <strong class="d-inline-block mb-2 text-emphasis dark">
-                  {library.name}
-                </strong>
-                <h5 class="mb-0 text-color3">{library.filename}</h5>
-                <div class="mb-1 text-body-ehite">
-                  version {library.version}
-                </div>
-                <p class="card-text mb-auto text-color3">
-                  {library.description}
-                </p>
-                <div class="text-center">
-                  <a
-                    href="#"
-                    class="icon-link gap-1 icon-link-hover link-light stretched-link"
-                  >
-                    Go details
-                    <i class="bi bi-chevron-right" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+    <div class="row row-cols-md-3 row-cols-1 mb-2" id="libraries"></div>
   </div>
 
   <footer class="py-3 my-4">
@@ -148,22 +118,155 @@ libraries = data.results;
 </Blank>
 
 <script>
-  import axios from "axios";
-
+  let libraries = [];
   const apiUrl = "https://api.cdnjs.com/libraries";
   const params = {
-    fields: "filename,description,version,github",
-    limit: 3,
+    fields: "filename,description,version",
+    limit: 42,
   };
 
-  // axios
-  //   .get(apiUrl, { params })
-  //   .then((response) => {
-  //     // Proses data yang diterima dari API
-  //     console.log("Data dari API:", response.data);
-  //   })
-  //   .catch((error) => {
-  //     // Tangani kesalahan jika permintaan gagal
-  //     console.error("Error dalam permintaan:", error);
-  //   });
+  const response = await fetch(
+    `${apiUrl}?fields=${params.fields}&limit=${params.limit}`
+  );
+  const data = await response.json();
+  libraries = data.results;
+
+  libraries.map(
+    (library) =>
+      (document.getElementById("libraries").innerHTML += `
+          <div class="col py-3">
+            <div
+              class="row g-0 shadow rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+              style="height: 100%;"
+            >
+              <div class="col p-4 d-flex flex-column position-static color4">
+                <strong class="d-inline-block mb-2 text-emphasis dark">
+                  ${library.name}
+                </strong>
+                <h5 class="mb-0 text-color3">${library.filename}</h5>
+                <div class="mb-1 text-body-ehite">
+                  version ${library.version}
+                </div>
+                <p class="card-text mb-auto text-color3">
+                  ${library.description}
+                </p>
+                <div class="text-center">
+                  <a
+                    href="#"
+                    class="icon-link gap-1 icon-link-hover stretched-link link-underline link-underline-opacity-0" 
+                  >
+                    Go details
+                    <i class="bi bi-chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>`)
+  );
+</script>
+<script is:inline>
+  const apiUrl = "https://api.cdnjs.com/libraries";
+
+  $("#searchBox").on("input", function () {
+    if ($(this).val().length >= 2) {
+      const query = $(this).val();
+      getResults(query);
+    }
+  });
+
+  $("#searchButton").click(() => {
+    const query = $("#searchBox").val();
+    getResults(query);
+  });
+
+  function getResults(keyword) {
+    $("#libraries").empty();
+    $("#libraries").append(`
+    <div class="col py-3">
+    <div class="text-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      </div>
+      </div>`);
+    $("#libraries").append(`
+    <div class="col py-3">
+    <div class="text-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      </div>
+      </div>`);
+    $("#libraries").append(`
+    <div class="col py-3">
+    <div class="text-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      </div>
+      </div>`);
+
+    $.ajax({
+      url: apiUrl,
+      dataType: "json",
+      data: {
+        search: keyword,
+        fields: "filename,description,version",
+      },
+      type: "GET",
+      success: function (response) {
+        libraries = response.results;
+        $("#libraries").empty();
+        if (libraries.length == 0) {
+          $("#libraries").append(`
+    <div class="col py-3">
+    
+      </div>`);
+          $("#libraries").append(`
+    <div class="col py-3">
+    <div class="text-center">
+    <p class="text-center text-body-secondary fw-bold fs-2">No data</p>
+      </div>`);
+          $("#libraries").append(`
+    <div class="col py-3">
+   
+      </div>`);
+        }
+        libraries.map((library) =>
+          $("#libraries").append(`<div class="col py-3">
+            <div
+              class="row g-0 shadow rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+              style="height: 100%;"
+            >
+              <div class="col p-4 d-flex flex-column position-static color4">
+                <strong class="d-inline-block mb-2 text-emphasis dark">
+                  ${library.name}
+                </strong>
+                <h5 class="mb-0 text-color3">${library.filename}</h5>
+                <div class="mb-1 text-body-ehite">
+                  version ${library.version}
+                </div>
+                <p class="card-text mb-auto text-color3">
+                  ${library.description}
+                </p>
+                <div class="text-center">
+                  <a
+                    href="#"
+                    class="icon-link gap-1 icon-link-hover stretched-link link-underline link-underline-opacity-0"
+                  >
+                    Go details
+                    <i class="bi bi-chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>`)
+        );
+      },
+      error: function (error) {
+        console.log(error);
+        // handle error
+      },
+    });
+  }
 </script>
