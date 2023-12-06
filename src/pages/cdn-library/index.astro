@@ -217,6 +217,21 @@ import Blank from "../../layouts/Blank.astro";
       success: function (response) {
         libraries = response.results;
         $("#libraries").empty();
+        if (libraries.length == 0) {
+          $("#libraries").append(`
+    <div class="col py-3">
+    
+      </div>`);
+          $("#libraries").append(`
+    <div class="col py-3">
+    <div class="text-center">
+    <p class="text-center text-body-secondary fw-bold fs-2">No data</p>
+      </div>`);
+          $("#libraries").append(`
+    <div class="col py-3">
+   
+      </div>`);
+        }
         libraries.map((library) =>
           $("#libraries").append(`<div class="col py-3">
             <div
