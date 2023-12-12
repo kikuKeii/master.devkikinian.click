@@ -1,0 +1,160 @@
+---
+import Blank from "../../layouts/Blank.astro";
+---
+
+<Blank title="Password Reminder">
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img
+          src="/assets/img/3293465.jpg"
+          class="d-block mx-lg-auto img-fluid"
+          alt="Bootstrap Themes"
+          width="700"
+          height="500"
+          loading="lazy"
+        />
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+          Password Reminder
+        </h1>
+        <p class="lead">
+          Aplikasi peningat password. Dapat membantu anda mengingatkan password
+          yang sudah anda lupakan.
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 text-center" id="password">
+        <p class="lead fw-medium">Enter password</p>
+      </div>
+      <div class="col-12 col-md-5 text-center px-5 pe-5 ps-5">
+        <input
+          class="form-control form-control-lg password-input"
+          type="text"
+        />
+      </div>
+      <div class="col-12 text-center py-3">
+        <button class="btn btn-primary btn-lg button-submit">Submit</button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="modalFinal"
+    tabindex="-1"
+    aria-labelledby="modalFinalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalFinalLabel">Please Shut Up</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <div class="img-fluid">
+                <img
+                  src="/assets/img/4024747.jpg"
+                  width="100%"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col"></div>
+  </div>
+  <div class="row my-5">
+    <div class="col"></div>
+  </div>
+  <div class="row my-5">
+    <div class="col"></div>
+  </div>
+  <div class="row my-5">
+    <div class="col"></div>
+  </div>
+  <footer class="fixed-bottom text-white text-right p-2">
+    <figure class="text-end">
+      <blockquote class="blockquote">
+        <p>Password Reminder Apps~</p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        Thank you for coming, don't forget to follow @kikukeii /@kikukeii_ ~
+        <cite title="Source Title"
+          ><a
+            href="http://github.com/kikukeii"
+            target="_blank"
+            rel="noopener noreferrer">Miftakhuddin Falaki</a
+          ></cite
+        >
+      </figcaption>
+    </figure>
+  </footer>
+</Blank>
+
+<script is:inline>
+  $(".button-submit").on("click", function () {
+    konten();
+  });
+
+  function konten() {
+    const password = $(".password-input").val();
+    if (password == "password") {
+      $("#password").empty();
+      $("#password").append(
+        `<p class="lead fw-medium">Password is incorrect</p>`
+      );
+      $(".password-input").val("");
+    }
+    if (password == "incorrect") {
+      $("#password").empty();
+      $("#password").append(`<p class="lead fw-medium">Try again</p>`);
+      $(".password-input").val("");
+    }
+    if (password == "again") {
+      $("#password").empty();
+      $("#password").append(
+        `<p class="lead fw-medium">Please try again letter</p>`
+      );
+      $(".password-input").val("");
+    }
+    if (password == "again letter") {
+      $("#password").empty();
+      $("#password").append(`<p class="lead fw-medium">Enter password</p>`);
+      $(".password-input").val("");
+
+      $("#modalFinal").modal("show");
+    }
+    if (
+      password != "password" &&
+      password != "incorrect" &&
+      password != "again" &&
+      password != "again letter"
+    ) {
+      $("#password").empty();
+      $("#password").append(
+        `<p class="lead fw-medium">Enter <span class="text-danger">password</span></p>`
+      );
+      $(".password-input").val("");
+    }
+  }
+</script>
