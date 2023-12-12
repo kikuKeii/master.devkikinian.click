@@ -54,6 +54,9 @@ import Received from "../../components/chat/Received.astro";
 <script is:inline>
   $("#send").on("click", function () {
     const text = $("#input-text").val();
+    if (text == "") {
+      return;
+    }
     $("#chatFrame").append(send("U", text));
     $("#chatFrame").append(received("AI", text, true));
     setTimeout(function () {
@@ -98,8 +101,8 @@ import Received from "../../components/chat/Received.astro";
   function received(name, body, typing = null) {
     var id = 0;
     if (typing !== null) {
-      body = ` <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-  <span role="status">typing...</span>`;
+      body = `<span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+  <span role="status">Typing...</span>`;
       id = 1;
     }
     const html = `<div class="d-flex flex-row justify-content-start mb-4" id="${
