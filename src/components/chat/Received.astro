@@ -1,0 +1,69 @@
+---
+interface Props {
+  name: string;
+  body: string;
+}
+
+const { name, body } = Astro.props;
+---
+
+<div class="d-flex flex-row justify-content-start mb-4">
+  <svg
+    width="100"
+    height="100"
+    xmlns="http://www.w3.org/2000/svg"
+    style="width: 45px; height: 100%;"
+    class="rounded-5"
+  >
+    <rect width="45px" height="100%" fill="#e0e0e0"></rect>
+    <text
+      x="50%"
+      y="50%"
+      font-size="20"
+      fill="#000"
+      font-family="Arial"
+      text-anchor="middle"
+      alignment-baseline="middle">{name}</text
+    >
+  </svg>
+  <div
+    class="p-3 ms-3"
+    style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);"
+  >
+    <p class="small mb-0">{body}</p>
+  </div>
+</div>
+
+<!-- <div class="d-flex flex-row justify-content-start mb-4">
+    <svg
+      width="100"
+      height="100"
+      xmlns="http://www.w3.org/2000/svg"
+      style="width: 45px; height: 100%;"
+      class="rounded-5"
+    >
+      <rect width="45px" height="100%" fill="#e0e0e0"></rect>
+      <text
+        x="50%"
+        y="50%"
+        font-size="20"
+        fill="#000"
+        font-family="Arial"
+        text-anchor="middle"
+        alignment-baseline="middle">AI</text
+      >
+    </svg>
+    <div class="ms-3" style="border-radius: 15px;">
+      <div class="bg-image">
+        <img
+          src="https://dummyimage.com/600x400/000/fff&text=My+Video"
+          style="border-radius: 15px;"
+          width="70%"
+          alt="video"
+        />
+        <a href="#!">
+          <div class="mask"></div>
+        </a>
+      </div>
+    </div>
+  </div> -->
