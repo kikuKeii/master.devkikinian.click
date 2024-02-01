@@ -117,6 +117,8 @@ import Blank from "../../layouts/Blank.astro";
         con1.prop("checked", false);
         con3.prop("checked", false);
       }
+      con1.prop("checked", false);
+      con3.prop("checked", false);
     }
     getResult();
   });
@@ -130,23 +132,14 @@ import Blank from "../../layouts/Blank.astro";
   });
 
   function getResult() {
-    if (con1.is(":checked")) {
-      result.html(`<span class='text-success'>Sehat</span>`);
-      return;
-    }
     if (con2.is(":checked")) {
       result.html(
         `<span class='text-danger'>Tidak</span> <span class='text-success'>Sehat</span>`
       );
-
       return;
     }
-    if (con1.is(":checked") && con3.is(":checked")) {
+    if (con1.is(":checked") || con3.is(":checked")) {
       result.html(`<span class='text-success'>Sehat</span>`);
-    } else {
-      result.html(
-        `<span class='text-danger'>Tidak</span> <span class='text-success'>Sehat</span>`
-      );
     }
   }
 </script>
