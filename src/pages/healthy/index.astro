@@ -1,0 +1,148 @@
+---
+import Blank from "../../layouts/Blank.astro";
+---
+
+<style>
+  @import url(https://fonts.googleapis.com/css?family=Itim:400);
+  body {
+    font-family: "Itim", cursive;
+  }
+</style>
+<Blank title="Your Mental Healthy">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 my-5"></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="display-4">
+          Test Your <span class="text-primary">Mental</span>&nbsp
+          <span class="text-danger">Health</span>
+        </h1>
+        <!-- <h1>Your Healthy</h1> -->
+      </div>
+      <div class="col-md-12 m-5">
+        <div class="form-check form-switch d-flex align-items-center">
+          <input
+            class="form-check-input display-5 me-3"
+            type="checkbox"
+            role="switch"
+            name="condition1"
+            id="condition1"
+          />
+          <label class="form-check-label display-5" for="condition1"
+            >Merasa <span class="text-info">Sehat</span></label
+          >
+        </div>
+      </div>
+      <div class="col-md-12 m-5">
+        <div class="form-check form-switch d-flex align-items-center">
+          <input
+            class="form-check-input display-5 me-3"
+            type="checkbox"
+            role="switch"
+            name="condition2"
+            id="condition2"
+          />
+          <label class="form-check-label display-5 text-center" for="condition2"
+            ><img src="/assets/img/uilo.png" alt="" srcset="" width="90" /><br
+            /><span class="text-danger">Ho*ny</span> dengan Gambar ini</label
+          >
+        </div>
+      </div>
+      <div class="col-md-12 m-5">
+        <div class="form-check form-switch d-flex align-items-center">
+          <input
+            class="form-check-input display-5 me-3"
+            type="checkbox"
+            role="switch"
+            name="condition3"
+            id="condition3"
+          />
+          <label class="form-check-label display-5" for="condition3"
+            >Tidak <span class="text-warning">Pedo</span></label
+          >
+        </div>
+      </div>
+      <div class="col-md-12 my-3">
+        <p class="text-center display-5">Anda <span id="result"></span></p>
+      </div>
+      <div class="col-md-12 my-5"></div>
+      <div class="col-md-12 my-5"></div>
+      <div class="col-md-12 my-5"></div>
+    </div>
+  </div>
+  <footer class="fixed-bottom text-white text-right p-2">
+    <figure class="text-end">
+      <blockquote class="blockquote">
+        <p>Password Reminder Apps~</p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        Thank you for coming, don't forget to follow @kikukeii /@kikukeii_ ~
+        <cite title="Source Title"
+          ><a
+            href="http://github.com/kikukeii"
+            target="_blank"
+            rel="noopener noreferrer">Miftakhuddin Falaki</a
+          ></cite
+        >
+      </figcaption>
+    </figure>
+  </footer>
+</Blank>
+<script is:inline>
+  let con1 = $("#condition1");
+  let con2 = $("#condition2");
+  let con3 = $("#condition3");
+  let result = $("#result");
+
+  con1.on("change", function () {
+    if (con1.is(":checked")) {
+      if (con2.is(":checked") && con3.is(":checked")) {
+        con2.prop("checked", false);
+        con3.prop("checked", false);
+      }
+    }
+    getResult();
+  });
+  con2.on("change", function () {
+    if (con2.is(":checked")) {
+      if (con1.is(":checked") && con3.is(":checked")) {
+        con1.prop("checked", false);
+        con3.prop("checked", false);
+      }
+    }
+    getResult();
+  });
+  con3.on("change", function () {
+    if (con3.is(":checked")) {
+      if (con1.is(":checked") && con2.is(":checked")) {
+        con1.prop("checked", false);
+      }
+    }
+    getResult();
+  });
+
+  function getResult() {
+    if (con1.is(":checked")) {
+      result.html(`<span class='text-success'>Sehat</span>`);
+      return;
+    }
+    if (con2.is(":checked")) {
+      result.html(
+        `<span class='text-danger'>Tidak</span> <span class='text-success'>Sehat</span>`
+      );
+
+      return;
+    }
+    if (con1.is(":checked") && con3.is(":checked")) {
+      result.html(`<span class='text-success'>Sehat</span>`);
+    } else {
+      result.html(
+        `<span class='text-danger'>Tidak</span> <span class='text-success'>Sehat</span>`
+      );
+    }
+  }
+</script>
